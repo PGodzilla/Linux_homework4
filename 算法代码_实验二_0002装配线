@@ -1,0 +1,90 @@
+nclude<stdio.h>
+
+int DPFastestWay(int a1[],int a2[],int t1[],int t2[],int E1,int E2,int X1,int X2,int n){
+
+	int f1[1001],f2[1001];
+
+	int j;
+
+	f1[1]=E1+a1[1];  f2[1]=E2+a2[1];
+
+	for(j=2;j<=n;j++){
+
+		if(f1[j-1]+a1[j]<=f2[j-1]+t2[j-1]+a1[j]){
+
+			f1[j]=f1[j-1]+a1[j];
+
+		}
+
+		else{
+
+			f1[j]=f2[j-1]+t2[j-1]+a1[j];
+
+		}
+
+		if(f2[j-1]+a2[j]<=f1[j-1]+t1[j-1]+a2[j]){
+
+			f2[j]=f2[j-1]+a2[j];
+
+		}
+
+		else{
+
+			f2[j]=f1[j-1]+t1[j-1]+a2[j];
+
+		}
+
+	}
+
+	if(f1[n]+X1<=f2[n]+X2){
+
+		return f1[n]+X1;
+
+	}
+
+	else{
+
+		return f2[n]+X2;
+
+	}
+
+}
+
+int main(){
+
+	int n,E1,E2,X1,X2;
+
+	int i,a1[1001],a2[1001],t1[1001],t2[1001];
+
+	scanf("%d",&n);
+
+	scanf("%d",&E1);
+
+	scanf("%d",&E2);
+
+	scanf("%d",&X1);
+
+	scanf("%d",&X2);
+
+	for(i=1;i<=n;i++)
+
+		scanf("%d",&a1[i]);
+
+	for(i=1;i<=n;i++)
+
+		scanf("%d",&a2[i]);
+
+	for(i=1;i<=n-1;i++)
+
+		scanf("%d",&t1[i]);
+
+	for(i=1;i<=n-1;i++)
+
+		scanf("%d",&t2[i]);
+
+	printf("%d",DPFastestWay(a1,a2,t1,t2,E1,E2,X1,X2,n));
+
+	return 0;
+
+}
+
